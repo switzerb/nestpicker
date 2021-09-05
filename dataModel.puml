@@ -1,0 +1,64 @@
+@startuml
+Target *-- Geolocation : has one
+Target *-- Attribute : has many
+Attribute *-- Group : has one
+Attribute *-- Score : has one
+
+class Target {
+    String name
+    String geoId
+    List<Attributes> attributes
+    getByCriteria() : List<Factor>
+}
+
+interface IAttribute {
+   rightNow()
+   inTenYears()
+   inFiftyYears()
+}
+
+class Attribute implements IAttribute {
+   String name
+   Group group
+   Score score
+}
+
+class Geolocation {
+    ID Id
+    String country
+    String state
+    String region
+    String fips
+}
+
+class Group {
+  ID id
+  String name
+  Int parent
+}
+
+interface Score {
+    accepts() : Boolean
+    createScore() : Int
+}
+
+class NumberScore implements Score {
+  Int data
+  accepts()
+  createScore()
+}
+
+class RangeScore implements Score {
+  Int high
+  Int low
+  accepts()
+  createScore()
+}
+
+class RankScore implements Score {
+ Int rank
+ accepts()
+ createScore()
+}
+
+@enduml
