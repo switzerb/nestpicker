@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.brennaswitzer.nestpicker
+testFramework: kotest
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [ annotation-api, app-name, gradle, graphql, http-client, jdbc-hikari, kotest, kotlin, kotlin-application, netty-server, postgres, readme, shade, slf4j-simple, testcontainers, yaml ]

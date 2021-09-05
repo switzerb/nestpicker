@@ -1,0 +1,9 @@
+micronaut:
+  application:
+    name: nestpicker
+datasources:
+  default:
+    url: jdbc:postgresql:${database.host}
+    driverClassName: org.postgresql.Driver
+    username: ${database.username}
+    password: ${database.password}
