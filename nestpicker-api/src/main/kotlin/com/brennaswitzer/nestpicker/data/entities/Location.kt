@@ -13,4 +13,6 @@ object Locations : IntIdTable() {
 class Location(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Location>(Locations)
     var name by Locations.name
+
+    val facets: MutableMap<Facet, Any?> = mutableMapOf<Facet, Any?>()
 }
