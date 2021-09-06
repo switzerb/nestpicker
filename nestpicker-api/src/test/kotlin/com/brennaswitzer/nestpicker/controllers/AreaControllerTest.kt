@@ -1,18 +1,17 @@
 package com.brennaswitzer.nestpicker.controllers
 
-import com.brennaswitzer.nestpicker.data.repos.LocationRepo
-import com.brennaswitzer.nestpicker.utils.BaseTest
+import com.brennaswitzer.nestpicker.data.repos.AreaRepo
+import io.kotest.core.spec.style.AnnotationSpec
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import jakarta.inject.Inject
-import org.jetbrains.exposed.sql.transactions.transaction
 
 @MicronautTest
-class LocationControllerAgainTest : BaseTest() {
+class AreaControllerTest : AnnotationSpec() {
 
     @Inject
-    lateinit var locationRepo: LocationRepo
+    lateinit var areaRepo: AreaRepo
 
     @Inject
     @field:Client("/")
@@ -20,8 +19,6 @@ class LocationControllerAgainTest : BaseTest() {
 
     @Test
     fun createNewLocation() {
-        transaction {
-            locationRepo.getLocations()
-        }
+        areaRepo.getAreas()
     }
 }
