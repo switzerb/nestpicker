@@ -2,16 +2,17 @@ package com.brennaswitzer.nestpicker.controllers
 
 import com.brennaswitzer.nestpicker.data.repos.AreaRepo
 import io.kotest.core.spec.style.AnnotationSpec
+import io.kotest.matchers.shouldBe
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import jakarta.inject.Inject
 
 @MicronautTest
-class AreaControllerTest : AnnotationSpec() {
+class RegionControllerTest : AnnotationSpec() {
 
     @Inject
-    lateinit var areaRepo: AreaRepo
+    lateinit var regionRepo: AreaRepo
 
     @Inject
     @field:Client("/")
@@ -19,6 +20,6 @@ class AreaControllerTest : AnnotationSpec() {
 
     @Test
     fun createNewLocation() {
-        areaRepo.getAreas()
+        1.shouldBe(1)
     }
 }

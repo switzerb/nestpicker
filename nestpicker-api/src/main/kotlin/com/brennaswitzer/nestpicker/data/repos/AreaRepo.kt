@@ -1,25 +1,52 @@
 package com.brennaswitzer.nestpicker.data.repos
 
+import com.brennaswitzer.nestpicker.data.models.AggregateArea
 import com.brennaswitzer.nestpicker.data.models.Area
 import jakarta.inject.Singleton
 
 @Singleton
 class AreaRepo {
 
-    private val areas = mutableListOf(
-        Area(1, "Kauai"),
-        Area(2, "Pienza"),
-        Area(3, "Burlington"),
+    val kauai = Area(1, "Kauai")
+    val maui = Area(2, "Maui")
+    val pienza = Area(3, "Pienza")
+    val burlington = Area(4, "Burlington")
+
+    val hawaii = AggregateArea(
+        id = 5,
+        areas = mutableListOf(kauai, maui)
     )
 
-    fun getNextId() = areas.size + 1
+    private val regions = mutableListOf(
+        kauai,
+        maui,
+        pienza,
+        burlington,
+        hawaii
+    )
 
-    fun getAreas(): List<Area> {
-        return areas.toList()
+    fun getNextId() = regions.size + 1
+
+    fun getRegions(): List<Area> {
+        return regions.toList()
     }
 
-    fun createArea(area: Area): Area {
-        areas.add(area)
-        return area
+    fun createArea(name: String): Area {
+        val newArea = Area(
+            id = getNextId(),
+            name = name
+        )
+        regions.add(newArea)
+        return newArea
+    }
+
+    fun createAggregateArea(name: String ,areas: List<Area>) : AggregateArea {
+        val newAggregateArea = AggregateArea(
+            id = getNextId(),
+            name = name,
+            areas = areas.toMutableList()
+        )
+        regions.add(newAggregateArea)
+        return newAggregateArea
     }
 }

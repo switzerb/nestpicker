@@ -8,8 +8,8 @@ for Australia I can create an aggregate location with all
 the areas in Australia that I have data for and
 calculate their collective facets
 */
-class AggregateArea {
-    init {
-        val areas: MutableList<Area> = mutableListOf()
-    }
-}
+class AggregateArea(
+    id: Int,
+    name: String,
+    val areas: MutableList<Area> = mutableListOf()
+) : Area(id, name)
