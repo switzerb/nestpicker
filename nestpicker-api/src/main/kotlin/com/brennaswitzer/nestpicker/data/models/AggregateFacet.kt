@@ -1,7 +1,5 @@
 package com.brennaswitzer.nestpicker.data.models
 
-import com.brennaswitzer.nestpicker.data.entities.Facet
-
 /*
 Groups of facets represent a "category" of information
 
@@ -16,9 +14,10 @@ overall stability
 Calculated Property to roll things up into, for example, climate data
  */
 
-class AggregateFacet() {
-
-    init {
-        val facets : MutableList<Facet> = mutableListOf()
-    }
-}
+class AggregateFacet(
+    id: Int,
+    name: String,
+    dataType: DataType = DataType.STRING,
+    scorer: Scorer,
+    val facets: MutableList<Facet> = mutableListOf()
+) : Facet(id, name, dataType, scorer)

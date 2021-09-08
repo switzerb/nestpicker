@@ -17,6 +17,7 @@ class AreaServiceTest : BaseTest() {
     @Test
     fun works() {
         val costOfLiving = Facet(
+            id = 1,
             name = "Cost of Living",
             dataType = DataType.INTEGER,
             scorer = NumberScorer { n -> n * 10 }
