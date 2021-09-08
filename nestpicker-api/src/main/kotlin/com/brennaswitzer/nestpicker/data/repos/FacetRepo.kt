@@ -20,6 +20,10 @@ class FacetRepo {
         costOfLiving
     )
 
+    fun getById(id: Int): Facet {
+        return costOfLiving
+    }
+
     fun getFacets(): List<Facet> {
         return facets.toList()
     }

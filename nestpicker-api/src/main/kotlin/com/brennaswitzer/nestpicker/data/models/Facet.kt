@@ -10,4 +10,8 @@ open class Facet(
     fun getFacetScore(): Int {
         return scorer.getScore()
     }
+
+    override fun toString(): String {
+        return name.toString()
+    }
 }

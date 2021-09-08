@@ -4,6 +4,8 @@ import com.brennaswitzer.nestpicker.data.models.Area
 import com.brennaswitzer.nestpicker.data.models.DataType
 import com.brennaswitzer.nestpicker.data.models.Facet
 import com.brennaswitzer.nestpicker.data.models.NumberScorer
+import com.brennaswitzer.nestpicker.data.repos.AreaRepo
+import com.brennaswitzer.nestpicker.data.repos.FacetRepo
 import com.brennaswitzer.nestpicker.utils.BaseTest
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -14,14 +16,16 @@ class AreaServiceTest : BaseTest() {
     @Inject
     lateinit var areaService: AreaService
 
+    @Inject
+    lateinit var areaRepo: AreaRepo
+
+    @Inject
+    lateinit var facetRepo: FacetRepo
+
     @Test
     fun works() {
-        val costOfLiving = Facet(
-            id = 1,
-            name = "Cost of Living",
-            dataType = DataType.INTEGER,
-            scorer = NumberScorer { n -> n * 10 }
-        )
+        val costOfLiving = facetRepo.getById(1)
+        println(costOfLiving)
         val kauai = Area(
             id = 1,
             name = "Kauai"
