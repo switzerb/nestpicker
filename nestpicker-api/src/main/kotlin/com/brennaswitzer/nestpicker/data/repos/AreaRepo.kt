@@ -26,7 +26,7 @@ class AreaRepo {
         hawaii
     )
 
-    fun getNextId() = areas.size + 1
+    private fun getNextId() = areas.size + 1
 
     fun getAreas(): List<Area> {
         return areas.toList()
@@ -41,7 +41,7 @@ class AreaRepo {
         return newArea
     }
 
-    fun createAggregateArea(name: String ,areaList: List<Area>) : AggregateArea {
+    fun createAggregateArea(name: String, areaList: List<Area>): AggregateArea {
         val newAggregateArea = AggregateArea(
             id = getNextId(),
             name = name,
