@@ -1,29 +1,30 @@
 package com.brennaswitzer.nestpicker.services
 
+import com.brennaswitzer.nestpicker.data.models.Area
 import com.brennaswitzer.nestpicker.data.models.Facet
 import com.brennaswitzer.nestpicker.data.repos.AreaRepo
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 
 @Singleton
-class RegionService {
+class AreaService {
 
     @Inject
-    val regionRepo = AreaRepo()
+    val areaRepo = AreaRepo()
 
     fun createNewArea(name: String) {
-        regionRepo.createArea(name = name)
+        areaRepo.createArea(name = name)
     }
 
-    fun getRegions(): List<Region> {
-        return regionRepo.getRegions()
+    fun getAreas(): List<Area> {
+        return areaRepo.getAreas()
     }
 
     fun setFacetValue(
         facet: Facet,
-        region: Region,
+        area: Area,
         value: Any?
     ) {
-        region.setFacetValue(facet, value)
+        area.setFacetValue(facet, value)
     }
 }

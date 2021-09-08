@@ -9,10 +9,10 @@ import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import jakarta.inject.Inject
 
 @MicronautTest
-class RegionServiceTest : BaseTest() {
+class AreaServiceTest : BaseTest() {
 
     @Inject
-    lateinit var regionService: RegionService
+    lateinit var areaService: AreaService
 
     @Test
     fun works() {
@@ -29,16 +29,16 @@ class RegionServiceTest : BaseTest() {
             id = 2,
             name = "Montpelier"
         )
-        regionService.setFacetValue(
+        areaService.setFacetValue(
             facet = costOfLiving,
-            region = kauai,
+            area = kauai,
             value = 100000
         )
-        regionService.setFacetValue(
+        areaService.setFacetValue(
             facet = costOfLiving,
-            region = montpelier,
+            area = montpelier,
             value = 10000
         )
-        println(regionService.getRegions())
+        println(areaService.getAreas())
     }
 }

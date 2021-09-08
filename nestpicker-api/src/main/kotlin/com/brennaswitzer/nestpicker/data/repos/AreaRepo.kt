@@ -14,10 +14,11 @@ class AreaRepo {
 
     val hawaii = AggregateArea(
         id = 5,
+        name = "Hawaii",
         areas = mutableListOf(kauai, maui)
     )
 
-    private val regions = mutableListOf(
+    private val areas = mutableListOf(
         kauai,
         maui,
         pienza,
@@ -25,10 +26,10 @@ class AreaRepo {
         hawaii
     )
 
-    fun getNextId() = regions.size + 1
+    fun getNextId() = areas.size + 1
 
-    fun getRegions(): List<Area> {
-        return regions.toList()
+    fun getAreas(): List<Area> {
+        return areas.toList()
     }
 
     fun createArea(name: String): Area {
@@ -36,17 +37,17 @@ class AreaRepo {
             id = getNextId(),
             name = name
         )
-        regions.add(newArea)
+        areas.add(newArea)
         return newArea
     }
 
-    fun createAggregateArea(name: String ,areas: List<Area>) : AggregateArea {
+    fun createAggregateArea(name: String ,areaList: List<Area>) : AggregateArea {
         val newAggregateArea = AggregateArea(
             id = getNextId(),
             name = name,
-            areas = areas.toMutableList()
+            areas = areaList.toMutableList()
         )
-        regions.add(newAggregateArea)
+        areas.add(newAggregateArea)
         return newAggregateArea
     }
 }

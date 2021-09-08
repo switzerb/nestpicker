@@ -9,10 +9,10 @@ import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import jakarta.inject.Inject
 
 @MicronautTest
-class RegionControllerTest : AnnotationSpec() {
+class AreaControllerTest : AnnotationSpec() {
 
     @Inject
-    lateinit var regionRepo: AreaRepo
+    lateinit var areaRepo: AreaRepo
 
     @Inject
     @field:Client("/")

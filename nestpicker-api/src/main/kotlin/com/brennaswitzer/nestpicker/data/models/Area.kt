@@ -6,7 +6,7 @@ open class Area(
 ) {
     private val facets: MutableMap<Facet, Any?> = mutableMapOf()
 
-    fun setFacetValues(facet: Facet, value: Any?) {
+    fun setFacetValue(facet: Facet, value: Any?) {
         val typedValue = when (facet.dataType) {
             DataType.INTEGER -> value as Int
             DataType.STRING -> value.toString()
@@ -16,5 +16,9 @@ open class Area(
 
     fun getFacetValues(): Map<Facet, Any?> {
         return facets.toMap()
+    }
+
+    override fun toString(): String {
+        return name.toString()
     }
 }
