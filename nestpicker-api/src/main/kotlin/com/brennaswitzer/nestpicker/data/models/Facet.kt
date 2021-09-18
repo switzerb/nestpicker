@@ -21,8 +21,4 @@ open class Facet<V>(
     fun getFacetScore(value: V): Score {
         return scorer.getScore(value)
     }
-
-    override fun toString(): String {
-        return name.toString()
-    }
 }

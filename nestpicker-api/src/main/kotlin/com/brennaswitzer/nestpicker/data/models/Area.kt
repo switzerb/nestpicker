@@ -1,7 +1,5 @@
 package com.brennaswitzer.nestpicker.data.models
 
-import java.lang.UnsupportedOperationException
-
 open class Area(
     val id: Int,
     val name: String
@@ -15,7 +13,7 @@ open class Area(
 
     @Suppress("UNCHECKED_CAST")
     fun <T> getFacetValue(facet: Facet<T>): T {
-        if(facets[facet] == null) {
+        if (facets[facet] == null) {
             throw UnsupportedOperationException()
         }
         return facets[facet] as T
@@ -26,7 +24,7 @@ open class Area(
     }
 
     fun hasFacetValue(facet: Facet<*>): Boolean {
-        return facets[facet] == null
+        return facets[facet] != null
     }
 
     override fun toString(): String {

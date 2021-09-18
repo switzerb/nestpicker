@@ -27,7 +27,7 @@ class AreaServiceTest : BaseTest() {
         val facet = facetRepo.createFacet(
             name = "Cost of Living",
             dataType = DataType.INTEGER,
-            scorer = NumberScorer { n -> Score((n * 100).toDouble()) }
+            scorer = NumberScorer { n -> Score((n * 100 / 100).toDouble()) }
         )
         val kauai = Area(
             id = 1,
@@ -40,12 +40,12 @@ class AreaServiceTest : BaseTest() {
         areaService.setFacetValue(
             facet = facet,
             area = kauai,
-            value = 100000
+            value = 10
         )
         areaService.setFacetValue(
             facet = facet,
             area = montpelier,
-            value = 10000
+            value = 10
         )
         println(areaService.getAreas())
         println(areaService.getScoreFromFacetValue(kauai, facet))
