@@ -1,14 +1,25 @@
 package com.brennaswitzer.nestpicker.data.models
 
-open class Facet(
+abstract class FacetBase<V, S>(
     val id: Int,
     val name: String,
-    val dataType: DataType = DataType.STRING,
-    val scorer: Scorer
-) {
+    val scorer: Scorer<S>
+)
 
-    fun getFacetScore(): Int {
-        return scorer.getScore()
+open class Facet<V>(
+    id: Int,
+    name: String,
+    scorer: Scorer<V>,
+    val dataType: DataType = DataType.STRING,
+) : FacetBase<V, V>(
+    id = id,
+    name = name,
+    scorer = scorer
+) {
+    // in Facet guarantee they are the same assertion??
+
+    fun getFacetScore(value: V): Score {
+        return scorer.getScore(value)
     }
 
     override fun toString(): String {

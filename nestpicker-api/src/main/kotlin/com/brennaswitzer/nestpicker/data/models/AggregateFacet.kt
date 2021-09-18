@@ -17,7 +17,10 @@ Calculated Property to roll things up into, for example, climate data
 class AggregateFacet(
     id: Int,
     name: String,
-    dataType: DataType = DataType.STRING,
-    scorer: Scorer,
-    val facets: MutableList<Facet> = mutableListOf()
-) : Facet(id, name, dataType, scorer)
+    scorer: Scorer<List<Score>>,
+    val facets: MutableList<FacetBase<*, *>> = mutableListOf()
+) : FacetBase<Nothing, List<Score>>(
+    id = id,
+    name = name,
+    scorer = scorer
+)

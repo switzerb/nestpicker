@@ -1,22 +1,25 @@
 package com.brennaswitzer.nestpicker.data.models
 
-interface Scorer {
-    fun createScore(): Int
-    fun getScore(): Int
+data class Score(val value: Double)
+
+interface Scorer<T> {
+    fun getScore(data: T): Score
+}
+
+class AggregateScorer(
+    val strategy: (n: List<Score>) -> Score
+) : Scorer<List<Score>> {
+
+    override fun getScore(data: List<Score>): Score {
+        return strategy(data)
+    }
 }
 
 class NumberScorer(
-    val strategy: (n: Int) -> Int
-) : Scorer {
+    val strategy: (n: Int) -> Score
+) : Scorer<Int> {
 
-    private val data: Int = 0
-
-    // this will need to accept some function as a way to calculate score
-    override fun createScore(): Int {
+    override fun getScore(data: Int): Score {
         return strategy(data)
-    }
-
-    override fun getScore(): Int {
-        return data
     }
 }

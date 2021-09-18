@@ -1,21 +1,32 @@
 package com.brennaswitzer.nestpicker.data.models
 
+import java.lang.UnsupportedOperationException
+
 open class Area(
     val id: Int,
     val name: String
 ) {
-    private val facets: MutableMap<Facet, Any?> = mutableMapOf()
+    private val facets: MutableMap<Facet<*>, Any?> = mutableMapOf()
 
-    fun setFacetValue(facet: Facet, value: Any?) {
-        val typedValue = when (facet.dataType) {
-            DataType.INTEGER -> value as Int
-            DataType.STRING -> value.toString()
-        }
-        facets[facet] = typedValue
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getFacetScore(facet: Facet<T>): Score {
+        return facet.getFacetScore(facets[facet] as T)
     }
 
-    fun getFacetValues(): Map<Facet, Any?> {
-        return facets.toMap()
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getFacetValue(facet: Facet<T>): T {
+        if(facets[facet] == null) {
+            throw UnsupportedOperationException()
+        }
+        return facets[facet] as T
+    }
+
+    fun <T> setFacetValue(facet: Facet<T>, value: T?) {
+        facets[facet] = value
+    }
+
+    fun hasFacetValue(facet: Facet<*>): Boolean {
+        return facets[facet] == null
     }
 
     override fun toString(): String {

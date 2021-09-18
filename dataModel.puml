@@ -1,61 +1,62 @@
 @startuml
-Target *-- Geolocation : has one
-Target *-- Attribute : has many
-Attribute *-- Group : has one
-Attribute *-- Score : has one
+Area *-- Facet
+Facet *-- DataType
 
-class Target {
+class Area {
+    Int id
     String name
-    String geoId
-    List<Attributes> attributes
-    getByCriteria() : List<Factor>
+    List<Facet> facets
 }
 
-interface IAttribute {
+class AreaAggregate implements Area {
+    Int id
+    String name
+    List<Area> areas
+}
+
+class Facet extends Projection {
+    Int id,
+    String name,
+    DataType dataType,
+    Scorer scorer,
+}
+
+class FacetAggregate implements Facet {
+    Int id,
+    String name
+    List<Facet> facets
+}
+
+enum DataType {
+ INTEGER,
+ STRING
+}
+
+interface Projection {
    rightNow()
    inTenYears()
    inFiftyYears()
 }
 
-class Attribute implements IAttribute {
-   String name
-   Group group
-   Score score
-}
-
-class Geolocation {
-    ID Id
-    String country
-    String state
-    String region
-    String fips
-}
-
-class Group {
-  ID id
-  String name
-  Int parent
-}
-
-interface Score {
+interface Scorer {
     accepts() : Boolean
     createScore() : Int
 }
 
-class NumberScore implements Score {
+class NumberScorer implements Scorer {
   Int data
   accepts()
   createScore()
 }
 
-class RangeScore implements Score {
+class RangeScorer implements Scorer {
   Int high
   Int low
   accepts()
   createScore()
 }
 
-class RankScore implements Score {
+class RankScore implements Scorer {
  Int rank
  accepts()
  createScore()

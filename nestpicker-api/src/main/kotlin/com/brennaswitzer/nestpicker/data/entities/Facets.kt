@@ -16,7 +16,7 @@ object Facets : IntIdTable() {
 class Facet(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Facet>(Facets)
 
-    var scorer: Scorer? = null
+//    var scorer: Scorer<*>? = null
     var name by Facets.name
     var dataType by Facets.dataType
 }

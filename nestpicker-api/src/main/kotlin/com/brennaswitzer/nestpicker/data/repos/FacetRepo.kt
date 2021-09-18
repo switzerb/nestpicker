@@ -1,38 +1,18 @@
 package com.brennaswitzer.nestpicker.data.repos
 
-import com.brennaswitzer.nestpicker.data.models.DataType
-import com.brennaswitzer.nestpicker.data.models.Facet
-import com.brennaswitzer.nestpicker.data.models.NumberScorer
-import com.brennaswitzer.nestpicker.data.models.Scorer
+import com.brennaswitzer.nestpicker.data.models.*
 import jakarta.inject.Singleton
 
 @Singleton
 class FacetRepo {
 
-    val costOfLiving = Facet(
-        id = 1,
-        name = "Cost of Living",
-        dataType = DataType.INTEGER,
-        scorer = NumberScorer { n -> n * 10 }
-    )
+    private val facets = mutableListOf<Facet<*>>()
 
-    private val facets = mutableListOf<Facet>(
-        costOfLiving
-    )
-
-    fun getById(id: Int): Facet {
-        return costOfLiving
-    }
-
-    fun getFacets(): List<Facet> {
-        return facets.toList()
-    }
-
-    fun createFacet(
+    fun <T> createFacet(
         name: String,
         dataType: DataType,
-        scorer: Scorer
-    ): Facet {
+        scorer: Scorer<T>
+    ): Facet<T> {
         val newFacet = Facet(
             id = getNextId(),
             name = name,
@@ -43,11 +23,11 @@ class FacetRepo {
         return newFacet
     }
 
-    fun createAggregateFacet(
+    fun <T> createAggregateFacet(
         name: String,
         dataType: DataType,
-        scorer: Scorer
-    ): Facet {
+        scorer: Scorer<T>
+    ): Facet<T> {
         val newAggregateFacet = Facet(
             id = getNextId(),
             name = name,
