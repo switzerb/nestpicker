@@ -21,20 +21,22 @@ class AreaServiceTest : BaseTest() {
 
     @Test
     fun works() {
-        val costOfLiving = facetRepo.createFacet(
-            name = "Cost of Living",
+        val goods = facetRepo.createFacet(
+            name = "Goods and Services",
             dataType = DataType.INTEGER,
             scorer = NumberScorer { n -> Score(n.toDouble() / 100) }
         )
-        val homePrices = facetRepo.createFacet(
+        val realEstate = facetRepo.createFacet(
             name = "Real Estate",
             dataType = DataType.INTEGER,
             scorer = NumberScorer { n -> Score((n * 100 / 100).toDouble()) }
         )
-        val cost = facetRepo.createAggregateFacet(
-            name = "Money",
-            scorer = AggregateScorer { Score(20.00) }
+        val costOfLiving = facetRepo.createAggregateFacet(
+            name = "Cost of Living",
+            scorer = AggregateScorer { list -> Score(list.map { it.value }.average()) }
         )
+        costOfLiving.addFacet(goods)
+        costOfLiving.addFacet(realEstate)
 
         val kauai = Area(
             id = 1,
@@ -45,18 +47,31 @@ class AreaServiceTest : BaseTest() {
             name = "Montpelier"
         )
         areaService.setFacetValue(
-            facet = costOfLiving,
+            facet = goods,
             area = kauai,
             value = 10
         )
         areaService.setFacetValue(
-            facet = costOfLiving,
+            facet = realEstate,
+            area = kauai,
+            value = 50
+        )
+        areaService.setFacetValue(
+            facet = goods,
             area = montpelier,
             value = 20
         )
-        println(areaService.getAreas())
-        println(areaService.getAreaFacetAggregateScore(kauai, cost))
+        areaService.setFacetValue(
+            facet = realEstate,
+            area = montpelier,
+            value = 100
+        )
+        println("Areas: ${areaService.getAreas()}")
         println(areaService.getAreaFacetScore(kauai, costOfLiving))
+        println(areaService.getAreaFacetScore(kauai, goods))
+        println(areaService.getAreaFacetScore(kauai, realEstate))
         println(areaService.getAreaFacetScore(montpelier, costOfLiving))
+        println(areaService.getAreaFacetScore(montpelier, goods))
+        println(areaService.getAreaFacetScore(montpelier, realEstate))
     }
 }

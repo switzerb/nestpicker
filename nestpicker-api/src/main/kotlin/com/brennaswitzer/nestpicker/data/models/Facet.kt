@@ -4,7 +4,9 @@ abstract class FacetBase<V, S>(
     val id: Int,
     val name: String,
     val scorer: Scorer<S>
-)
+) {
+    abstract fun getFacetScore(area: Area): Score?
+}
 
 open class Facet<V>(
     id: Int,
@@ -16,7 +18,13 @@ open class Facet<V>(
     name = name,
     scorer = scorer
 ) {
-    fun getFacetScore(value: V): Score {
-        return scorer.getScore(value)
+    override fun getFacetScore(area: Area): Score? {
+        return if (area.hasFacetValue(this)) {
+            scorer.getScore(
+                area.getFacetValue(this)
+            )
+        } else {
+            null
+        }
     }
 }

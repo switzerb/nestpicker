@@ -1,9 +1,6 @@
 package com.brennaswitzer.nestpicker.services
 
-import com.brennaswitzer.nestpicker.data.models.AggregateFacet
-import com.brennaswitzer.nestpicker.data.models.Area
-import com.brennaswitzer.nestpicker.data.models.Facet
-import com.brennaswitzer.nestpicker.data.models.Score
+import com.brennaswitzer.nestpicker.data.models.*
 import com.brennaswitzer.nestpicker.data.repos.AreaRepo
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
@@ -37,23 +34,10 @@ class AreaService {
         return area.getFacetValue(facet)
     }
 
-    fun getAreaFacetAggregateScore(
+    fun getAreaFacetScore(
         area: Area,
-        facet: AggregateFacet
-    ): Score {
-        return facet.getFacetScore()
-    }
-
-    fun <T> getAreaFacetScore(
-        area: Area,
-        facet: Facet<T>
+        facet: FacetBase<*, *>
     ): Score? {
-        return if (area.hasFacetValue(facet)) {
-            facet.getFacetScore(
-                area.getFacetValue(facet)
-            )
-        } else {
-            null
-        }
+        return facet.getFacetScore(area)
     }
 }

@@ -6,10 +6,10 @@ open class Area(
 ) {
     private val facets: MutableMap<Facet<*>, Any?> = mutableMapOf()
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T> getFacetScore(facet: Facet<T>): Score {
-        return facet.getFacetScore(facets[facet] as T)
-    }
+//    @Suppress("UNCHECKED_CAST")
+//    fun <T> getFacetScore(facet: Facet<T>): Score {
+//        return facet.getFacetScore(facets[facet] as T)
+//    }
 
     @Suppress("UNCHECKED_CAST")
     fun <T> getFacetValue(facet: Facet<T>): T {

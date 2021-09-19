@@ -14,19 +14,24 @@ overall stability
 Calculated Property to roll things up into, for example, climate data
  */
 
+/* TODO: Can aggregateFacet contain other aggregates? */
 class AggregateFacet(
     id: Int,
     name: String,
     scorer: Scorer<List<Score>>,
-    val facets: MutableList<FacetBase<*, *>> = mutableListOf()
+    private val facets: MutableList<Facet<*>> = mutableListOf()
 ) : FacetBase<Nothing, List<Score>>(
     id = id,
     name = name,
     scorer = scorer
 ) {
-    fun getFacetScore(): Score {
-        val values = listOf<Score>()
-        return scorer.getScore(values)
+    fun <V> addFacet(facet: Facet<V>) {
+        facets.add(facet)
     }
-
+    override fun getFacetScore(area: Area): Score {
+        val scores = facets.mapNotNull { facet ->
+            facet.getFacetScore(area)
+        }
+        return scorer.getScore(scores)
+    }
 }
