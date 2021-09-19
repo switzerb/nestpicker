@@ -16,8 +16,6 @@ open class Facet<V>(
     name = name,
     scorer = scorer
 ) {
-    // in Facet guarantee they are the same assertion??
-
     fun getFacetScore(value: V): Score {
         return scorer.getScore(value)
     }

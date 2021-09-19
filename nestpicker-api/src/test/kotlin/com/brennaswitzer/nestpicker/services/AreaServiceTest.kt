@@ -1,9 +1,6 @@
 package com.brennaswitzer.nestpicker.services
 
-import com.brennaswitzer.nestpicker.data.models.Area
-import com.brennaswitzer.nestpicker.data.models.DataType
-import com.brennaswitzer.nestpicker.data.models.NumberScorer
-import com.brennaswitzer.nestpicker.data.models.Score
+import com.brennaswitzer.nestpicker.data.models.*
 import com.brennaswitzer.nestpicker.data.repos.AreaRepo
 import com.brennaswitzer.nestpicker.data.repos.FacetRepo
 import com.brennaswitzer.nestpicker.utils.BaseTest
@@ -24,11 +21,21 @@ class AreaServiceTest : BaseTest() {
 
     @Test
     fun works() {
-        val facet = facetRepo.createFacet(
+        val costOfLiving = facetRepo.createFacet(
             name = "Cost of Living",
+            dataType = DataType.INTEGER,
+            scorer = NumberScorer { n -> Score(n.toDouble() / 100) }
+        )
+        val homePrices = facetRepo.createFacet(
+            name = "Real Estate",
             dataType = DataType.INTEGER,
             scorer = NumberScorer { n -> Score((n * 100 / 100).toDouble()) }
         )
+        val cost = facetRepo.createAggregateFacet(
+            name = "Money",
+            scorer = AggregateScorer { Score(20.00) }
+        )
+
         val kauai = Area(
             id = 1,
             name = "Kauai"
@@ -38,16 +45,18 @@ class AreaServiceTest : BaseTest() {
             name = "Montpelier"
         )
         areaService.setFacetValue(
-            facet = facet,
+            facet = costOfLiving,
             area = kauai,
             value = 10
         )
         areaService.setFacetValue(
-            facet = facet,
+            facet = costOfLiving,
             area = montpelier,
-            value = 10
+            value = 20
         )
         println(areaService.getAreas())
-        println(areaService.getScoreFromFacetValue(kauai, facet))
+        println(areaService.getAreaFacetAggregateScore(kauai, cost))
+        println(areaService.getAreaFacetScore(kauai, costOfLiving))
+        println(areaService.getAreaFacetScore(montpelier, costOfLiving))
     }
 }

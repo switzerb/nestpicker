@@ -23,4 +23,10 @@ class AggregateFacet(
     id = id,
     name = name,
     scorer = scorer
-)
+) {
+    fun getFacetScore(): Score {
+        val values = listOf<Score>()
+        return scorer.getScore(values)
+    }
+
+}

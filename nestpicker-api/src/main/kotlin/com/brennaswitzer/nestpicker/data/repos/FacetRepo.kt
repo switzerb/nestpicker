@@ -6,7 +6,7 @@ import jakarta.inject.Singleton
 @Singleton
 class FacetRepo {
 
-    private val facets = mutableListOf<Facet<*>>()
+    private val facets = mutableListOf<FacetBase<*, *>>()
 
     fun <T> createFacet(
         name: String,
@@ -23,15 +23,13 @@ class FacetRepo {
         return newFacet
     }
 
-    fun <T> createAggregateFacet(
+    fun createAggregateFacet(
         name: String,
-        dataType: DataType,
-        scorer: Scorer<T>
-    ): Facet<T> {
-        val newAggregateFacet = Facet(
+        scorer: Scorer<List<Score>>
+    ): AggregateFacet {
+        val newAggregateFacet = AggregateFacet(
             id = getNextId(),
             name = name,
-            dataType = dataType,
             scorer = scorer
         )
         facets.add(newAggregateFacet)
